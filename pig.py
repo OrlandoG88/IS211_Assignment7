@@ -22,6 +22,7 @@ class player:
         while roll_hold != 'h':
             die = roll_die()
             if die == 1:
+                print(f"{self.name} rolled a {die}, no points added this turn")
                 break
             turn_total += die
             print(
@@ -29,12 +30,10 @@ class player:
                 f"{self.name}  possible total is {turn_total}"
 
             )
-            roll_hold = input('roll or hold?').lower
+            roll_hold = input('roll or hold?').lower()
             if roll_hold == 'h':
                 self.total += turn_total
-            print (f"{self.name} total: {turn_total}")
-
-
+            print (f"{self.name} total: {self.total}")
 
 
 
@@ -50,20 +49,20 @@ class Game:
         for player in self.players:
             if player.total >= 100:
                 self.winner = player
-                return true
+                return True
+
+
 
     def play_game(self):
         current_player = self.players[0]
 
         while not self.check_winner():
+            current_player.play_turn()
             if current_player == self.players[0]:
-                self.players[0].play_turn()
                 current_player = self.players[1]
             elif current_player == self.players[1]:
-                self.players[1].play_turn()
                 current_player = self.players[0]
-
-
+        print(f"The winner is {self.winner}, thanks for playing goodbye")
 
 
 
@@ -72,6 +71,14 @@ if __name__ == "__main__":
     p2 = player('p2')
     pig_game = Game(p1, p2)
     pig_game.play_game()
+
+
+
+
+
+
+
+
 
 
 
